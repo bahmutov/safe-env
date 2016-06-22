@@ -2,6 +2,7 @@
 
 const la = require('lazy-ass')
 const is = require('check-more-types')
+const R = require('ramda')
 
 /* global describe, it */
 describe('safe-env', () => {
@@ -20,5 +21,12 @@ describe('safe-env', () => {
   it('hides HOME value when told to', () => {
     const o = safeEnv(['HOME'])
     la(o.HOME === '<hidden>', o.HOME)
+  })
+
+  it('returns only uppercase keys', () => {
+    const o = safeEnv()
+    const keys = R.keys(o)
+    const upper = R.map(R.toUpper, keys)
+    la(R.equals(keys, upper), 'not all uppercase', o)
   })
 })
