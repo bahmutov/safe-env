@@ -9,13 +9,11 @@
       "commit-msg": "simple",
       "pre-commit": [
         "npm run deps",
-        "npm test",
-        "npm run ban"
+        "npm test"
       ],
       "pre-push": [
         "npm run secure",
         "npm run license",
-        "npm run ban -- --all",
         "npm run size"
       ],
       "post-commit": [],
@@ -49,7 +47,6 @@
     "url": "https://github.com/bahmutov/safe-env.git"
   },
   "scripts": {
-    "ban": "ban",
     "deps": "deps-ok",
     "format": "standard-format -w src/*.js",
     "issues": "git-issues",
@@ -58,18 +55,22 @@
     "pretest": "npm run format && npm run lint",
     "secure": "nsp check",
     "size": "t=\"$(npm pack .)\"; wc -c \"${t}\"; tar tvf \"${t}\"; rm \"${t}\";",
-    "test": "npm run unit",
+    "test": "NODE_PATH=.. npm run unit",
     "unit": "mocha src/*-spec.js"
   },
   "devDependencies": {
-    "ban-sensitive-files": "1.8.3",
+    "check-more-types": "2.21.0",
     "deps-ok": "1.1.0",
     "git-issues": "1.2.0",
+    "lazy-ass": "1.4.0",
     "license-checker": "5.1.2",
     "mocha": "2.5.3",
     "nsp": "2.4.0",
     "pre-git": "3.9.1",
     "standard": "7.1.2",
     "standard-format": "2.2.1"
+  },
+  "dependencies": {
+    "ramda": "0.21.0"
   }
 }

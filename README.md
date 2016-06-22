@@ -8,6 +8,31 @@
 [![semantic-release][semantic-image] ][semantic-url]
 [![js-standard-style][standard-image]][standard-url]
 
+When you start the server, and something does not work, are you sure that all expected
+environment variables were set correctly? Can you quickly dump them to a console or send them
+to the logging service? Can you hide the sensitive information, like passwords or tokens?
+
+```js
+const safeEnv = require('safe-env')
+const sensitive = ['TOKEN', 'API-KEY']
+console.log(safeEnv(sensitive))
+/*
+{
+  FOO: 'foo value',
+  BAR: 'bar value',
+  TOKEN: '<hidden>'
+}
+*/
+```
+
+Seems we forgot to set `API-KEY`!
+
+## Details
+
+* Only all uppercase keys from `process.env` are printed, 
+  filtering out lots of noise, like `npm_...` keys.
+* There is a [default list](src/private-keys.js) of sensitive keys, if you do not pass any.
+
 ### Small print
 
 Author: Gleb Bahmutov &lt;gleb.bahmutov@gmail.com&gt; &copy; 2016
