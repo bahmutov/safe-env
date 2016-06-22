@@ -11,7 +11,7 @@ function upperCaseEnvVariables () {
 
 function hideSomeVariables (o, names) {
   const hideSpecifiedKeys = (val, key) => {
-    return names.includes(key) ? '<hidden>' : val
+    return R.contains(key, names) ? '<hidden>' : val
   }
   return R.mapObjIndexed(hideSpecifiedKeys, o)
 }
