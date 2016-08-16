@@ -1,11 +1,12 @@
 'use strict'
 
 const R = require('ramda')
+// default private keys
 const privateKeys = require('./private-keys')
 
-function upperCaseEnvVariables () {
+function upperCaseEnvVariables (object) {
   const isKeyAllUpperCase = (val, key) => key.toUpperCase() === key
-  const userVars = R.pickBy(isKeyAllUpperCase, process.env)
+  const userVars = R.pickBy(isKeyAllUpperCase, object)
   return userVars
 }
 
@@ -16,9 +17,9 @@ function hideSomeVariables (o, names) {
   return R.mapObjIndexed(hideSpecifiedKeys, o)
 }
 
-function safeEnv (names) {
+function safeEnv (names, object) {
   names = names || privateKeys
-  const ups = upperCaseEnvVariables()
+  const ups = upperCaseEnvVariables(object || process.env)
   return hideSomeVariables(ups, names)
 }
 

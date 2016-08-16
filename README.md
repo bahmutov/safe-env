@@ -12,6 +12,8 @@ When you start the server, and something does not work, are you sure that all ex
 environment variables were set correctly? Can you quickly dump them to a console or send them
 to the logging service? Can you hide the sensitive information, like passwords or tokens?
 
+## Example
+
 ```js
 const safeEnv = require('safe-env')
 const sensitive = ['TOKEN', 'API-KEY']
@@ -27,11 +29,20 @@ console.log(safeEnv(sensitive))
 
 Seems we forgot to set `API-KEY`!
 
+## Options
+
+You can pass an object to be filtered instead of using `process.env`
+
+```js
+const result = safeEnv(sensitive, myObject)
+```
+
 ## Details
 
-* Only all uppercase keys from `process.env` are printed, 
+* Only all uppercase keys from `process.env` are printed,
   filtering out lots of noise, like `npm_...` keys.
 * There is a [default list](src/private-keys.js) of sensitive keys, if you do not pass any.
+* Only top level properties are replaced
 
 ### Small print
 
@@ -73,9 +84,9 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 
-[npm-icon]: https://nodei.co/npm/safe-env.png?downloads=true
+[npm-icon]: https://nodei.co/npm/safe-env.svg?downloads=true
 [npm-url]: https://npmjs.org/package/safe-env
-[ci-image]: https://travis-ci.org/bahmutov/safe-env.png?branch=master
+[ci-image]: https://travis-ci.org/bahmutov/safe-env.svg?branch=master
 [ci-url]: https://travis-ci.org/bahmutov/safe-env
 [semantic-image]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
 [semantic-url]: https://github.com/semantic-release/semantic-release
