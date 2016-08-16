@@ -37,4 +37,26 @@ describe('safe-env', () => {
     la(out.FOO === hidden, out)
     la(out.BAR === 'bar', out)
   })
+
+  it('can use predicate function', () => {
+    const o = {foo: 42, bar: 'bar'}
+    const hideKey = (key) => key === 'foo'
+    const out = safeEnv(hideKey, o)
+    la(is.object(out), 'returns an object', out)
+    la(out.foo === hidden, 'hides foo', out)
+    la(out.bar === o.bar, 'does not hide bar', out)
+  })
+
+  it('can filter all "token" values', () => {
+    const o = {
+      foo: 42,
+      myToken: 'secret',
+      'another-token': 'very secret'
+    }
+    const tokenName = (key) => key.toLowerCase().indexOf('token') !== -1
+    const out = safeEnv(tokenName, o)
+    la(is.object(out))
+    la(out.myToken === hidden)
+    la(out['another-token'] === hidden)
+  })
 })

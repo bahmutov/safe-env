@@ -44,15 +44,31 @@ const result = safeEnv(sensitive, myObject)
 * There is a [default list](src/private-keys.js) of sensitive keys, if you do not pass any.
 * Only top level properties are replaced
 
+## Custom predicate function
+
+You can pass a custom predicate function that returns true based on the
+property name to filter custom values. For example to hide all properties
+with string 'token' in them
+
+```js
+const o = {
+  foo: 42,
+  myToken: 'secret',
+  'another-token': 'very secret'
+}
+const tokenName = (key) => key.toLowerCase().indexOf('token') !== -1
+const out = safeEnv(tokenName, o)
+// out has both 'myToken' and 'another-token' values replaced
+// with '<hidden>'
+```
+
 ### Small print
 
 Author: Gleb Bahmutov &lt;gleb.bahmutov@gmail.com&gt; &copy; 2016
 
-
 * [@bahmutov](https://twitter.com/bahmutov)
 * [glebbahmutov.com](http://glebbahmutov.com)
 * [blog](http://glebbahmutov.com/blog)
-
 
 License: MIT - do anything with the code, but don't blame me if it does not work.
 
