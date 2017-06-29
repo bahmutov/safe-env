@@ -18,6 +18,11 @@
       ],
       "post-commit": [],
       "post-merge": []
+    },
+    "next-update": {
+      "commands": {
+        "git-issues": "npm run issues"
+      }
     }
   },
   "engines": {
@@ -48,11 +53,10 @@
   },
   "scripts": {
     "deps": "deps-ok",
-    "format": "standard-format -w src/*.js",
     "issues": "git-issues",
     "license": "license-checker --production --onlyunknown --csv",
-    "lint": "standard --verbose src/*.js",
-    "pretest": "npm run format && npm run lint",
+    "lint": "standard --verbose --fix src/*.js",
+    "pretest": "npm run lint",
     "secure": "nsp check",
     "size": "t=\"$(npm pack .)\"; wc -c \"${t}\"; tar tvf \"${t}\"; rm \"${t}\";",
     "test": "NODE_PATH=.. npm run unit",
@@ -70,8 +74,7 @@
     "nsp": "2.6.3",
     "pre-git": "3.15.0",
     "semantic-release": "6.3.6",
-    "standard": "8.0.0-beta.4",
-    "standard-format": "2.2.4"
+    "standard": "10.0.2"
   },
   "dependencies": {
     "ramda": "0.24.1"
@@ -79,7 +82,7 @@
   "release": {
     "verifyConditions": {
       "path": "condition-node-version",
-      "node": "4"
+      "node": "6"
     }
   }
 }

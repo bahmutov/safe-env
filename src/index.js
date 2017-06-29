@@ -31,9 +31,7 @@ function filterPredicate (predicate, object) {
   return R.mapObjIndexed(predicate, object)
 }
 
-function safeEnv (names, object) {
-  names = names || privateKeys
-  object = object || process.env
+function safeEnv (names = privateKeys, object = process.env) {
   if (Array.isArray(names)) {
     return filterStringMatches(names, object)
   }
