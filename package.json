@@ -77,7 +77,7 @@
     "standard": "10.0.3"
   },
   "dependencies": {
-    "ramda": "0.26.0"
+    "ramda": "0.26.1"
   },
   "release": {
     "verifyConditions": {
